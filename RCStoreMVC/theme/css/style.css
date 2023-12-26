@@ -1,0 +1,61 @@
+/* Genel Stil */
+/* Navbar içindeki menü öğelerini ortalamak için özel stil */
+
+body {
+    background-color: #1a1a1a; /* Dark tema uyumlu arka plan rengi */
+    color: #fff; /* Beyaz metin rengi */
+    font-family: Arial, sans-serif; /* Metin fontu */
+    /* Kenar boşlukları */
+    margin: 0; /* Default margin kaldırıldı */
+}
+
+/* Column Padding */
+.col-md-3 {
+    /* Genel olarak soldan sağa doğru sıralama yapmak için flex kullanımı */
+    display: flex;
+    flex-direction: column;
+}
+
+.list-group {
+    /* Liste öğelerini soldan hizalamak için flex kullanımı */
+    display: flex;
+    flex-direction: column;
+}
+
+.list-group-item {
+    /* Genişlik ayarı yaparak sütun hâline getirme */
+    width: 100%;
+}
+
+
+/* Product Padding */
+.product {
+    padding-top: 30px; /* Ürünlerin üst boşluğu */
+}
+
+/* Button Style */
+button {
+    background-color: #4CAF50; /* Buton arka plan rengi */
+    color: white; /* Buton metin rengi */
+    padding: 0.5em 1em; /* Buton iç boşluğu */
+    border: none; /* Buton kenarlık yok */
+    border-radius: 4px; /* Buton köşe yuvarlama */
+    cursor: pointer; /* Buton üzerine gelince imleci değiştir */
+}
+
+    button:hover {
+        background-color: #45a049; /* Butonun hover rengi */
+    }
+
+footer {
+    background-color: #222;
+    color: #fff;
+    padding: 20px 0;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+

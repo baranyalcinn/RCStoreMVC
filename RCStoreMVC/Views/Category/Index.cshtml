@@ -1,0 +1,45 @@
+﻿@model IEnumerable<RCStoreMVC.Entity.Category>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+}
+
+<div class="container pb-5" data-bs-theme="dark">
+    <h2>Kategori Listesi</h2>
+    <hr />
+    <p>
+        @Html.ActionLink("Yeni Kategori", "Create", null, new { @class = "btn btn-info" })
+    </p>
+    <table class="table table-bordered table-hover">
+        <tr>
+            <th class="table-active">
+                @Html.DisplayNameFor(model => model.CategoryName)
+            </th>
+            <th class="table-active">
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th class="table-active" style="width: 130px">
+
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td align="center">
+                    @Html.ActionLink("Güncelle", "Edit", new { id = item.Id }, new { @class = "btn btn-warning btn-sm"})
+                    @Html.ActionLink("Sil", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

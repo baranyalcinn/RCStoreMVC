@@ -1,0 +1,61 @@
+﻿@model RCStoreMVC.Entity.Product
+
+@{
+    ViewBag.Title = "Details";
+}
+<div class="container pb-5" data-bs-theme="dark">
+    <h2>Ürün Detay</h2>
+    <hr />
+
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Category.CategoryName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Category.CategoryName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Marka)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Marka)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Fiyat)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Fiyat)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.IsHome)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.IsHome)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Image)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Image)
+            </dd>
+
+        </dl>
+    </div>
+
+    <div>
+        @Html.ActionLink("Kaydet", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Ürünler", "Index", null, new { @class = "btn btn-warning" })
+    </div>
+</div>
+
+   

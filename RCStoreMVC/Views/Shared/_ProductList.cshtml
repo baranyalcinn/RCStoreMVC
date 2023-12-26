@@ -1,0 +1,31 @@
+﻿@using RCStoreMVC.Models
+@model IEnumerable<ProductModel>
+
+
+<div class="row row-cols-1 row-cols-md-3 g-4" data-bs-theme="dark">
+    @foreach (var urun in Model)
+    {
+        <div class="col mb-2">
+            <div class="card h-100">
+
+                <div class="card-body">
+                    <a href="/Home/Details/@urun.Id">
+                        <img src="~/Images/@urun.Image" class="card-img-top" alt="@urun.Marka"
+                             style="width: 100%; height: 200px; object-fit: cover;" transition: transform 0.2s ease-in-out;"
+                             onmouseover="this.style.transform='scale(1.05)';" onmouseout="this.style.transform='scale(1)';">
+                    </a>
+                </div>
+
+                <div class="container-fluid">
+                    <h5 class="card-title">
+                        <a href="/Home/Details/@urun.Id" class="list-group-item text-decoration-none">@urun.Marka</a>
+                    </h5>
+                </div>
+                <div class="card-footer bg-transparent border-top-0">
+                    <p class="card-text"><strong style="color: gold;">@urun.Fiyat ₺</strong></p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

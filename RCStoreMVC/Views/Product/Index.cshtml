@@ -1,0 +1,71 @@
+﻿@using RCStoreMVC.Entity
+@model IEnumerable<Product>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+}
+
+<div class="container pb-5" data-bs-theme="dark">
+    <h2>Ürünler</h2>
+    <hr />
+    <p>
+        @Html.ActionLink("Yeni Ürün", "Create", null, new { @class = "btn btn-info" })
+    </p>
+    <table class="table table-bordered table-hover">
+        <tr>
+            <th class="table-active " style="width: 61px">
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
+            <th class="table-active">
+                @Html.DisplayNameFor(model => model.Category.CategoryName)
+            </th>
+            <th class="table-active">
+                @Html.DisplayNameFor(model => model.Marka)
+            </th>
+            <th class="table-active">
+                @Html.DisplayNameFor(model => model.Fiyat)
+            </th>
+            <th class="table-active">
+                @Html.DisplayNameFor(model => model.IsHome)
+            </th>
+
+            <th class="table-active" style="width: 130px"></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td align="center">
+                    <img src="~/Images/@item.Image" class="rounded border border-dark shadow-sm" style="width: 60px; height: 100%; object-fit: cover;" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Marka)
+                </td>
+                <td style="color:yellow">
+                    @Html.DisplayFor(modelItem => item.Fiyat)
+                </td>
+                <td align="center">
+                    @if (item.IsHome)
+                    {
+                        <i class="fa fa-check fs-3" aria-hidden="true" style="color:lawngreen"></i>
+                    }
+                    else
+                    {
+                        <i class="fa fa-times fs-3" aria-hidden="true" style="color:orangered"></i>
+                    }
+                </td>
+                <td align="center">
+                    @Html.ActionLink("Güncelle", "Edit", new { id = item.Id }, new { @class = "btn btn-warning btn-sm" })
+                    @Html.ActionLink("Sil", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" })
+                </td>
+            </tr>
+
+        }
+
+    </table>
+</div>

@@ -1,0 +1,53 @@
+﻿@using RCStoreMVC.Models
+@model IEnumerable<UserOrderModel>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-9">
+            <h2>Sipariş Bilgileriniz</h2>
+            <hr />
+
+            <table class="table table-bordered table-dark fs-5">
+                <thead class="table-active">
+                    <tr>
+                        <th scope="col">Sipariş Numarası</th>
+                        <th scope="col">Sipariş Tarihi</th>
+                        <th scope="col">Toplam</th>
+                        <th scope="col">Sipariş Durumu</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.OrderNumber</td>
+                            <td align="center">@item.OrderDate.ToShortDateString()</td>
+                            <td align="center">₺@item.Total</td>
+                            <td align="center">
+                                @if (item.OrderState == RCStoreMVC.Entity.EnumOrderState.Bekleniyor)
+                                {
+                                    <span class="">
+                                        <i class="fa fa-refresh" style="color: dodgerblue" aria-hidden="true"></i>
+                                        Onay Bekleniyor
+                                    </span>
+                                }
+                                else if (item.OrderState == RCStoreMVC.Entity.EnumOrderState.İptal)
+                                {
+                                    <span><i class="fa fa-times fs-5" style="color:red" aria-hidden="true"></i> İptal Edildi</span>
+                                }
+                                else
+                                {
+                                    <span><i class="fa fa-calendar-check-o" style="color: limegreen" aria-hidden="true"></i> Tamamlandı</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+﻿@using RCStoreMVC.Entity
+@model IEnumerable<Category>
+@{
+    var selectedCategory = Url.RequestContext.RouteData.Values["id"];
+}
+
+<div class="list-group" id="list-tab" role="tablist" data-bs-theme="dark">
+    <a href="/Home/List" class="list-group-item list-group-item-action @((selectedCategory == null) ? "active" : "")">
+        Tüm Ürünler
+    </a>
+
+    @foreach (var item in Model)
+    {
+        var isSelected = selectedCategory != null && item.Id == int.Parse(selectedCategory.ToString());
+        <a href="/Home/List/@item.Id" class="list-group-item list-group-item-action @(isSelected ? "active" : "")">
+            @item.Description
+        </a>
+    }
+</div>

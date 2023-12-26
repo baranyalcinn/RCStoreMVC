@@ -1,0 +1,139 @@
+﻿@model RCStoreMVC.Models.Cart
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+    .item-details {
+        background-color: #333; /* Dark background color */
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.1); /* Adjust shadow color */
+    }
+
+    .brand {
+        font-weight: bold;
+        color: #fff; /* White text color */
+    }
+
+    .quantity {
+        color: #ddd; /* Light gray text color */
+    }
+
+    .total-price {
+        font-size: 18px;
+        color: #ff6347; /* Reddish text color */
+        margin-top: 10px;
+    }
+
+    /* İçindeki simgelerin varsayılan rengi */
+    #cartButtons .btn i {
+        color: #dee2e6;
+    }
+
+    /* Butonların hover efekti ve rengi */
+    #cartButtons .btn:hover i {
+        color: #1a1a1a; /* Varsayılan hover rengi, istediğiniz renge değiştirebilirsiniz */
+    }
+
+    /* RemoveFromCart butonunun hover efekti ve rengi */
+    #cartButtons .remove-btn:hover i {
+        color: #1a1a1a; /* RemoveFromCart butonunun hover rengi (kırmızı) */
+    }
+</style>
+
+
+<div class="container pb-5 ">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <h2>Sepet</h2>
+
+        
+
+            @if (Model.CartLines.Count > 0)
+            {
+                <div class="cart-container mt-4">
+                    @foreach (var item in Model.CartLines)
+                    {
+                        <div class="cart-item" style="margin-top: 12px">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <!-- Fotoğrafın bulunacağı sütun -->
+                                    <div class="item-image text-center">
+                                        <a href="/Home/Details/@item.Product.Id">
+                                            <img src="~/Images/@item.Product.Image" class="rounded border border-dark shadow-sm"
+                                                 style="width: 100%; height: 158px; object-fit: cover; transition: transform 0.2s ease-in-out;"
+                                                 onmouseover="this.style.transform='scale(1.05)';" onmouseout="this.style.transform='scale(1)';" />
+
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="item-details col-md-9">
+                                    <div class="row">
+                                        <!-- İlk elemanın sütunu -->
+                                        <div class=" col-md-11">
+                                            <div class=" fs-5">
+                                                <p class="brand">@item.Product.Marka</p>
+                                                <p class="quantity">@item.Quantity adet</p>
+                                                <p class="total-price fs-5">@((item.Product.Fiyat * item.Quantity).ToString("c"))</p>
+                                            </div>
+                                        </div>
+                                        <!-- İkinci elemanın sütunu -->
+                                        <div id="cartButtons" class="col-md-1 align-self-center" 
+                                                          >
+                                            <div class="btn-group-vertical btn-group-sm" role="group" aria-label="Sepet İşlemleri">
+                                                @using (Html.BeginForm("AddToCart", "Cart", new { @data_ajax = "false" }))
+                                                {
+                                                    @Html.Hidden("Id", (int)item.Product.Id)
+                                                    <button type="submit" class="btn btn-sm" style="background: none; border: none;">
+                                                        <i class="fa fa-plus fs-5" aria-hidden="true"></i>
+                                                    </button>
+                                                }
+                                               
+                                                @using (Html.BeginForm("RemoveFromCart", "Cart", new { @data_ajax = "false" }))
+                                                {
+                                                    @Html.Hidden("Id", (int)item.Product.Id)
+                                                    <button type="submit" class="btn remove-btn btn-sm mt-3" style="background: none; border: none;">
+                                                        <i class="fa fa-minus fs-5" aria-hidden="true"></i>
+                                                    </button>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="row d-flex align-items-center fs-4 mt-3">
+                        <div class="col">
+                            <a href="/Home/List" class="btn btn-secondary">
+                                <i class="fa fa-arrow-left" aria-hidden="true"></i> Alışverişe Devam Et
+                            </a>
+                        </div>
+
+                        <div class="col text-end">
+                            <div class="text-warning">
+                                <span class="text-warning" style="margin-right: 15px">
+                                    @Model.TotalPrice().ToString("c")
+                                </span>
+
+                                <a href="/Cart/Checkout" class="btn btn-success">
+                                    <i class="fa fa-check" aria-hidden="true"></i> Satın Al
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-dark mt-2" role="alert">
+                    <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Sepetinizde Ürün Bulunmamaktadır.
+                </div>
+            }
+
+        </div>
+    </div>
+</div>

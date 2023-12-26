@@ -1,0 +1,22 @@
+﻿@model IEnumerable<RCStoreMVC.Models.LinksModel>
+@{
+    ViewBag.Title = "Privacy";
+}
+
+<h2>Privacy</h2>
+
+
+
+<table class="table table-bordered table-hover" data-bs-theme="dark">
+    <tr>
+        <th class="table-active">Link</th>
+    </tr>
+    @foreach (var link in Model)
+    {
+    
+        <tr>
+            <td><a href="@link.Url"target="_blank">@link.Url</a></td>
+        </tr>
+
+    }
+</table>

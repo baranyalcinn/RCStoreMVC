@@ -1,0 +1,93 @@
+﻿@using RCStoreMVC.Models
+@model IEnumerable<AdminOrderModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    .bRecejt:hover {
+        color: #ff0000; /* İstenilen arka plan rengi */
+    }
+
+    /* İptal Butonu */
+    .bConfirm:hover {
+        color: #00ff00; /* İstenilen arka plan rengi */
+    }
+</style>
+
+<div class="container pb-5" align="center">
+    <h2>Siparişler</h2>
+    <hr />
+
+    <table class="table table-hover table-bordered d-lg-table-row" data-bs-theme="dark">
+        <thead class="table-active">
+            <tr s>
+                <th>Id</th>
+                <th>Sipariş Numarası</th>
+                <th>Tarihi</th>
+                <th>Sipariş Durumu</th>
+                <th>Toplam</th>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.OrderNumber</td>
+                    <td>@item.OrderDate</td>
+
+
+                    <td class="text-center fs-5">
+                        @if (item.OrderState == RCStoreMVC.Entity.EnumOrderState.Bekleniyor)
+                        {
+                            <span class="badge bg-warning text-dark">Onay Bekleniyor</span>
+                        }
+                        else if (item.OrderState == RCStoreMVC.Entity.EnumOrderState.İptal)
+                        {
+                            <span class="badge bg-danger">İptal Edildi</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-success">Tamamlandı</span>
+                        }
+
+                    </td>
+
+                    <td>@item.Total</td>
+
+                    <td width="90" align="center">
+
+                        <div class="d-flex flex-row mb-2">
+                            <div>
+                                @using (Html.BeginForm("ConfirmOrder", "Order", new { orderId = item.Id })) // ConfirmOrder action'ına sipariş ID'sini gönderiyor
+                                {
+                                    @Html.Hidden("orderId", item.Id) // Gizli alan ile sipariş ID'sini iletiyor
+                                    <button type="submit" class="btn bConfirm btn-sm">
+                                        <i class="fa fa-check-square-o fs-3" aria-hidden="true"></i>
+                                    </button>
+                                }
+                            </div>
+                            <div style="margin-left: 5px;">
+                                @using (Html.BeginForm("CancelOrder", "Order", new { orderId = item.Id })) // CancelOrder action'ına sipariş ID'sini gönderiyor
+                                {
+                                    @Html.Hidden("orderId", item.Id) // Gizli alan ile sipariş ID'sini iletiyor
+                                    <button type="submit" class="btn bRecejt btn-sm">
+                                        <i class="fa fa-times fs-3" aria-hidden="true"></i>
+                                    </button>
+                                }
+                            </div>
+
+                        </div>
+                    </td>
+
+
+                </tr>
+
+            }
+        </tbody>
+    </table>
+</div>
